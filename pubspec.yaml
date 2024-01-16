@@ -1,10 +1,10 @@
 name: ui_paste_component
 description: "A new Flutter project."
 version: 0.0.1
-homepage:
+homepage: aa
 
 environment:
-  sdk: '>=3.2.3 <4.0.0'
+  sdk: ">=2.19.0 <3.0.0"
   flutter: '>=3.3.0'
 
 dependencies:
