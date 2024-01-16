@@ -73,18 +73,28 @@ class PasteComponentNativeView: NSObject, UIPasteConfigurationSupporting, Flutte
     func createNativeView(view _view: UIView){
         if #available(iOS 16.0, *) {            
             let configuration = UIPasteControl.Configuration()
-            configuration.baseBackgroundColor = UIColor(red: 246/255.0, green: 246/255.0, blue: 246/255.0, alpha: 1) // Makes color closer to AdaptiveTextSelectionToolbar
+            configuration.baseBackgroundColor = UIColor(red: 246/255.0, green: 246/255.0, blue: 246/255.0, alpha: 1)
             configuration.baseForegroundColor = UIColor(white: 0, alpha: 1)
             configuration.cornerStyle = .fixed
             configuration.displayMode = .labelOnly
-                                
             let pasteButton = UIPasteControl(configuration: configuration)
-            pasteButton.frame = CGRect(x: 0, y: 0, width: 70, height: 34) //TODO Support Flutter's widget size
+            let width = getPasteControlWidth()
+            pasteButton.frame = CGRect(x: 8, y: 0, width: width, height: 34)
             _view.addSubview(pasteButton)
-            
             pasteButton.target = self
         } else {
             // Fallback on earlier versions
+        }
+    }
+    
+    private func getPasteControlWidth()-> Int {
+        let locale = Locale.current.languageCode
+        if locale == "ru" {
+            return 92
+        } else if locale == "en" {
+            return 56
+        } else {
+            return 150
         }
     }
 }

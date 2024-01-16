@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+
   runApp(const MyApp());
 }
 
@@ -24,61 +25,71 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: Locale("ru"),
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: Center(
-          child: TextField(
-            controller: _textEditingController,
-            textAlign: TextAlign.center,
-            contextMenuBuilder: (context, editableTextState) {
-              var children = <Widget>[];
-              for (var item in editableTextState.contextMenuButtonItems) {
-                if (item.type == ContextMenuButtonType.paste) {
-                  final pasteItem = item;
-                  children.add(
-                    Stack(
-                      children: [
-                        Positioned.fill(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: Transform.scale(
-                              scale: 0.88,
-                              child: UIPastComponent(
-                                onPasted: (pasted) {
-                                  _textEditingController.selection.textInside(pasted);
-                                  pasteItem.onPressed?.call();
-                                },
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 52,
+                child: TextField(
+
+                  controller: _textEditingController,
+                  textAlign: TextAlign.center,
+                  contextMenuBuilder: (context, editableTextState) {
+                    var children = <Widget>[];
+                    for (var item in editableTextState.contextMenuButtonItems) {
+                      if (item.type == ContextMenuButtonType.paste) {
+                        final pasteItem = item;
+                        children.add(
+                          Stack(
+                            children: [
+                              Visibility(
+                                visible: false,
+                                maintainSize: true,
+                                maintainState: true,
+                                maintainAnimation: true,
+                                child: CupertinoTextSelectionToolbarButton.buttonItem(
+                                  buttonItem: item,
+                                ),
                               ),
-                            ),
+                              Positioned.fill(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 10),
+                                  child: Transform.scale(
+                                    scale: .88,
+                                    child: UIPastComponent(
+                                      onPasted: (pasted) {
+                                        _textEditingController.selection.textInside(pasted);
+                                        pasteItem.onPressed?.call();
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        Visibility(
-                          visible: false,
-                          maintainAnimation: true,
-                          maintainSize: true,
-                          maintainState: true,
-                          child: CupertinoTextSelectionToolbarButton.buttonItem(
+                        );
+                      } else {
+                        children.add(
+                          CupertinoTextSelectionToolbarButton.buttonItem(
                             buttonItem: item,
                           ),
-                        ),
-                      ],
-                    ),
-                  );
-                } else {
-                  children.add(
-                    CupertinoTextSelectionToolbarButton.buttonItem(
-                      buttonItem: item,
-                    ),
-                  );
-                }
-              }
-              return AdaptiveTextSelectionToolbar(
-                anchors: editableTextState.contextMenuAnchors,
-                children: children,
-              );
-            },
+                        );
+                      }
+                    }
+                    return AdaptiveTextSelectionToolbar(
+                      anchors: editableTextState.contextMenuAnchors,
+                      children: children,
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         ),
       ),
