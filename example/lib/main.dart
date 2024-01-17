@@ -51,14 +51,11 @@ class _MyAppState extends State<MyApp> {
                     Stack(
                       children: [
                         Positioned.fill(
-                          child: Transform.scale(
-                            scale: .88,
-                            child: UIPastComponent(
-                              onPasted: (pasted) {
-                                _textEditingController.selection.textInside(pasted);
-                                pasteItem.onPressed?.call();
-                              },
-                            ),
+                          child: UIPastComponent(
+                            onPasted: (pasted) {
+                              _textEditingController.selection.textInside(pasted);
+                              pasteItem.onPressed?.call();
+                            },
                           ),
                         ),
                         Visibility(

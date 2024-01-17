@@ -70,7 +70,7 @@ class PasteComponentNativeView: NSObject, UIPasteConfigurationSupporting, Flutte
         }
     }
 
-    func createNativeView(view _view: UIView){
+    func createNativeView(view _view: UIView) {
         if #available(iOS 16.0, *) {            
             let configuration = UIPasteControl.Configuration()
             configuration.baseBackgroundColor = UIColor(red: 246/255.0, green: 246/255.0, blue: 246/255.0, alpha: 1)
@@ -79,20 +79,20 @@ class PasteComponentNativeView: NSObject, UIPasteConfigurationSupporting, Flutte
             configuration.displayMode = .labelOnly
             let pasteButton = UIPasteControl(configuration: configuration)
             let width = getPasteControlWidth()
-            pasteButton.frame = CGRect(x: 0, y: 0, width: width, height: 54)
+            pasteButton.frame = CGRect(x: 0, y: 0, width: width, height: 52)
             _view.addSubview(pasteButton)
             pasteButton.target = self
-        } 
+        }
     }
-    
+
     private func getPasteControlWidth()-> Int {
         let locale = Locale.current.languageCode
         if locale == "ru" {
-            return 94
+            return 110
         } else if locale == "en" {
-            return 60
+            return 70
         } else {
-            return 150
+            return 125
         }
     }
 }
