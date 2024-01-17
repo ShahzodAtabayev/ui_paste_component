@@ -26,11 +26,10 @@ class _UIPastComponentState extends State<UIPastComponent> {
   Widget build(BuildContext context) {
     const String viewType = 'paste_component';
     final Map<String, dynamic> creationParams = <String, dynamic>{};
-
     return UiKitView(
       viewType: viewType,
-      layoutDirection: TextDirection.ltr,
       creationParams: creationParams,
+      layoutDirection: TextDirection.ltr,
       creationParamsCodec: const StandardMessageCodec(),
       hitTestBehavior: PlatformViewHitTestBehavior.translucent,
     );
