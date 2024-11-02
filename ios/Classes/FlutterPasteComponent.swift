@@ -79,7 +79,7 @@ class PasteComponentNativeView: NSObject, UIPasteConfigurationSupporting, Flutte
             configuration.displayMode = .labelOnly
             let pasteButton = UIPasteControl(configuration: configuration)
             let width = getPasteControlWidth()
-            pasteButton.frame = CGRect(x: 0, y: 0, width: width, height: 52)
+            pasteButton.frame = CGRect(x: 0, y: 0, width: width, height: 56)
             _view.addSubview(pasteButton)
             pasteButton.target = self
         }
@@ -88,11 +88,11 @@ class PasteComponentNativeView: NSObject, UIPasteConfigurationSupporting, Flutte
     private func getPasteControlWidth()-> Int {
         let locale = Locale.current.languageCode
         if locale == "ru" {
-            return 110
+            return 120
         } else if locale == "en" {
-            return 70
+            return 80
         } else {
-            return 125
+            return 135
         }
     }
 }

@@ -33,6 +33,16 @@ class _MyAppState extends State<MyApp> {
     final systemVersion = getSystemVersion() ?? 13;
     return MaterialApp(
       locale: const Locale("ru"),
+      builder: (context, child) {
+        final mediaQueryData = MediaQuery.of(context);
+        final num constrainedTextScaleFactor = mediaQueryData.textScaleFactor.clamp(1.0, 1.25);
+        return MediaQuery(
+          data: mediaQueryData.copyWith(
+            textScaleFactor: constrainedTextScaleFactor as double?,
+          ),
+          child: child ?? const SizedBox.shrink(),
+        );
+      },
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Plugin example app'),
@@ -40,8 +50,8 @@ class _MyAppState extends State<MyApp> {
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: TextField(
-            controller: _textEditingController,
             textAlign: TextAlign.center,
+            controller: _textEditingController,
             contextMenuBuilder: (context, editableTextState) {
               var children = <Widget>[];
               for (var item in editableTextState.contextMenuButtonItems) {
@@ -58,14 +68,12 @@ class _MyAppState extends State<MyApp> {
                             },
                           ),
                         ),
-                        Visibility(
+                        const Visibility(
                           visible: false,
                           maintainSize: true,
                           maintainState: true,
                           maintainAnimation: true,
-                          child: CupertinoTextSelectionToolbarButton.buttonItem(
-                            buttonItem: item,
-                          ),
+                          child: CupertinoTextSelectionToolbarButton.text(text: "Paste"),
                         ),
                       ],
                     ),
@@ -88,4 +96,11 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
+
+  TextStyle _kToolbarButtonFontStyle = TextStyle(
+    inherit: false,
+    fontSize: 15.0,
+    letterSpacing: -0.15,
+    fontWeight: FontWeight.w400,
+  );
 }
