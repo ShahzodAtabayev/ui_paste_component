@@ -53,29 +53,35 @@ class _MyAppState extends State<MyApp> {
             textAlign: TextAlign.center,
             controller: _textEditingController,
             contextMenuBuilder: (context, editableTextState) {
-              var children = <Widget>[];
+              final localeCode = Localizations.localeOf(context).languageCode;
+
+              final Map<String, double> localeWidthMap = {
+                'en': 80,
+                'ru': 130,
+                'uz': 110,
+                'de': 120,
+                'fr': 115,
+                'es': 110,
+              };
+
+              const defaultWidth = 135.0;
+
+              final adaptiveWidth = localeWidthMap[localeCode] ?? defaultWidth;
+              final systemVersion = _MyAppState.getSystemVersion();
+              final children = <Widget>[];
               for (var item in editableTextState.contextMenuButtonItems) {
-                if (item.type == ContextMenuButtonType.paste && (Platform.isIOS && systemVersion >= 16)) {
+                if (item.type == ContextMenuButtonType.paste && Platform.isIOS && systemVersion! >= 16) {
                   final pasteItem = item;
+
                   children.add(
-                    Stack(
-                      children: [
-                        Positioned.fill(
-                          child: UIPastComponent(
-                            onPasted: (pasted) {
-                              _textEditingController.selection.textInside(pasted);
-                              pasteItem.onPressed?.call();
-                            },
-                          ),
-                        ),
-                        const Visibility(
-                          visible: false,
-                          maintainSize: true,
-                          maintainState: true,
-                          maintainAnimation: true,
-                          child: CupertinoTextSelectionToolbarButton.text(text: "Paste"),
-                        ),
-                      ],
+                    SizedBox(
+                      width: adaptiveWidth, // yoki AdaptiveWidth qiling istasangiz
+                      child: UIPastComponent(
+                        onPasted: (pasted) {
+                          _textEditingController.text = pasted;
+                          pasteItem.onPressed?.call();
+                        },
+                      ),
                     ),
                   );
                 } else {
@@ -96,11 +102,4 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
-
-  TextStyle _kToolbarButtonFontStyle = TextStyle(
-    inherit: false,
-    fontSize: 15.0,
-    letterSpacing: -0.15,
-    fontWeight: FontWeight.w400,
-  );
 }

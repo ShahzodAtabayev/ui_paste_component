@@ -1,10 +1,3 @@
-//
-//  FlutterPastComponent.swift
-//  Runner
-//
-//  Created by Kirill Lyubimov on 26/9/2023.
-//
-
 import Foundation
 import Flutter
 import UIKit
@@ -29,9 +22,8 @@ class PasteComponentNativeViewFactory: NSObject, FlutterPlatformViewFactory {
             binaryMessenger: messenger)
     }
 
-    /// Implementing this method is only necessary when the `arguments` in `createWithFrame` is not `nil`.
     public func createArgsCodec() -> FlutterMessageCodec & NSObjectProtocol {
-          return FlutterStandardMessageCodec.sharedInstance()
+        return FlutterStandardMessageCodec.sharedInstance()
     }
 }
 
@@ -52,7 +44,6 @@ class PasteComponentNativeView: NSObject, UIPasteConfigurationSupporting, Flutte
         currentMessenger = messenger
         methodChannel = FlutterMethodChannel(name: "ui_paste_component", binaryMessenger: currentMessenger!)
         super.init()
-        // iOS views can be created here
         createNativeView(view: _view)
     }
 
@@ -66,33 +57,33 @@ class PasteComponentNativeView: NSObject, UIPasteConfigurationSupporting, Flutte
     
     func paste(itemProviders: [NSItemProvider]) {
         if let pastedText = UIPasteboard.general.string {
-            methodChannel!.invokeMethod("pasted", arguments: pastedText)
+            methodChannel?.invokeMethod("pasted", arguments: pastedText)
         }
     }
 
     func createNativeView(view _view: UIView) {
-        if #available(iOS 16.0, *) {            
+        if #available(iOS 16.0, *) {
             let configuration = UIPasteControl.Configuration()
             configuration.baseBackgroundColor = UIColor(red: 246/255.0, green: 246/255.0, blue: 246/255.0, alpha: 1)
             configuration.baseForegroundColor = UIColor(white: 0, alpha: 1)
             configuration.cornerStyle = .fixed
             configuration.displayMode = .labelOnly
+            
             let pasteButton = UIPasteControl(configuration: configuration)
-            let width = getPasteControlWidth()
-            pasteButton.frame = CGRect(x: 0, y: 0, width: width, height: 56)
-            _view.addSubview(pasteButton)
-            pasteButton.target = self
-        }
-    }
+            pasteButton.translatesAutoresizingMaskIntoConstraints = false
 
-    private func getPasteControlWidth()-> Int {
-        let locale = Locale.current.languageCode
-        if locale == "ru" {
-            return 120
-        } else if locale == "en" {
-            return 80
-        } else {
-            return 135
+            _view.addSubview(pasteButton)
+
+            pasteButton.target = self
+
+
+            NSLayoutConstraint.activate([
+                pasteButton.leadingAnchor.constraint(equalTo: _view.leadingAnchor),
+                pasteButton.trailingAnchor.constraint(equalTo: _view.trailingAnchor),
+                pasteButton.topAnchor.constraint(equalTo: _view.topAnchor),
+                pasteButton.bottomAnchor.constraint(equalTo: _view.bottomAnchor),
+                pasteButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44)
+            ])
         }
     }
 }

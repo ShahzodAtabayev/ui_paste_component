@@ -26,12 +26,17 @@ class _UIPastComponentState extends State<UIPastComponent> {
   Widget build(BuildContext context) {
     const String viewType = 'paste_component';
     final Map<String, dynamic> creationParams = <String, dynamic>{};
-    return UiKitView(
-      viewType: viewType,
-      creationParams: creationParams,
-      layoutDirection: TextDirection.ltr,
-      creationParamsCodec: const StandardMessageCodec(),
-      hitTestBehavior: PlatformViewHitTestBehavior.translucent,
+
+    return SizedBox(
+      height: 56, // Min height for good visibility
+      width: double.infinity, // Expand to fill width
+      child: UiKitView(
+        viewType: viewType,
+        creationParams: creationParams,
+        layoutDirection: TextDirection.ltr,
+        creationParamsCodec: const StandardMessageCodec(),
+        hitTestBehavior: PlatformViewHitTestBehavior.translucent,
+      ),
     );
   }
 }
