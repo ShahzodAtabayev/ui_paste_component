@@ -1,3 +1,4 @@
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:ui_paste_component/ui_paste_component.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,15 @@ class _MyAppState extends State<MyApp> {
     final systemVersion = getSystemVersion() ?? 13;
     return MaterialApp(
       locale: const Locale("ru"),
+      supportedLocales: const [
+        Locale('ru'),
+        Locale('en'),
+      ],
+      localizationsDelegates: const [
+        GlobalWidgetsLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       builder: (context, child) {
         final mediaQueryData = MediaQuery.of(context);
         final num constrainedTextScaleFactor = mediaQueryData.textScaleFactor.clamp(1.0, 1.25);
@@ -72,7 +82,6 @@ class _MyAppState extends State<MyApp> {
               for (var item in editableTextState.contextMenuButtonItems) {
                 if (item.type == ContextMenuButtonType.paste && Platform.isIOS && systemVersion! >= 16) {
                   final pasteItem = item;
-
                   children.add(
                     SizedBox(
                       width: adaptiveWidth, // yoki AdaptiveWidth qiling istasangiz
