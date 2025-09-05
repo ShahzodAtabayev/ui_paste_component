@@ -27,7 +27,7 @@ class _UIPastComponentState extends State<UIPastComponent> {
     const String viewType = 'paste_component';
     final Map<String, dynamic> creationParams = <String, dynamic>{};
     return SizedBox(
-      height: 64,
+      height: 68,
       width: double.infinity, // Expand to fill width
       child: UiKitView(
         viewType: viewType,

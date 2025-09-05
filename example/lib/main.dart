@@ -64,7 +64,6 @@ class _MyAppState extends State<MyApp> {
             controller: _textEditingController,
             contextMenuBuilder: (context, editableTextState) {
               final localeCode = Localizations.localeOf(context).languageCode;
-
               final Map<String, double> localeWidthMap = {
                 'en': 80,
                 'ru': 130,
@@ -73,9 +72,7 @@ class _MyAppState extends State<MyApp> {
                 'fr': 115,
                 'es': 110,
               };
-
               const defaultWidth = 135.0;
-
               final adaptiveWidth = localeWidthMap[localeCode] ?? defaultWidth;
               final systemVersion = _MyAppState.getSystemVersion();
               final children = <Widget>[];
