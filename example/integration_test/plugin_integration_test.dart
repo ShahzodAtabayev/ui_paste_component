@@ -9,7 +9,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
-import 'package:ui_paste_component/ui_paste_component.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();

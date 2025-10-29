@@ -31,7 +31,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    final systemVersion = getSystemVersion() ?? 13;
     return MaterialApp(
       locale: const Locale("ru"),
       supportedLocales: const [
@@ -43,16 +42,6 @@ class _MyAppState extends State<MyApp> {
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      builder: (context, child) {
-        final mediaQueryData = MediaQuery.of(context);
-        final num constrainedTextScaleFactor = mediaQueryData.textScaleFactor.clamp(1.0, 1.25);
-        return MediaQuery(
-          data: mediaQueryData.copyWith(
-            textScaleFactor: constrainedTextScaleFactor as double?,
-          ),
-          child: child ?? const SizedBox.shrink(),
-        );
-      },
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Plugin example app'),
