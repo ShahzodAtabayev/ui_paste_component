@@ -1,6 +1,7 @@
 import Foundation
 import Flutter
 import UIKit
+import UniformTypeIdentifiers
 
 class PasteComponentNativeViewFactory: NSObject, FlutterPlatformViewFactory {
     private var messenger: FlutterBinaryMessenger
@@ -63,6 +64,8 @@ class PasteComponentNativeView: NSObject, UIPasteConfigurationSupporting, Flutte
 
     func createNativeView(view _view: UIView) {
         if #available(iOS 16.0, *) {
+            pasteConfiguration = UIPasteConfiguration(acceptableTypeIdentifiers: [UTType.plainText.identifier])
+
             let configuration = UIPasteControl.Configuration()
             configuration.baseBackgroundColor = UIColor(red: 246/255.0, green: 246/255.0, blue: 246/255.0, alpha: 1)
             configuration.baseForegroundColor = UIColor(white: 0, alpha: 1)
