@@ -1,7 +1,6 @@
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:ui_paste_component/ui_paste_component.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
+import 'package:material_ui/material_ui.dart';
 import 'dart:io';
 
 void main() {
@@ -37,11 +36,10 @@ class _MyAppState extends State<MyApp> {
         Locale('ru'),
         Locale('en'),
       ],
-      localizationsDelegates: const [
-        GlobalWidgetsLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
+      // material_ui / cupertino_ui ship their own MaterialLocalizations and
+      // CupertinoLocalizations types, so their delegates must be used here
+      // (not the ones from flutter_localizations).
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Plugin example app'),

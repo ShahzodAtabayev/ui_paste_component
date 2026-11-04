@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'ui_paste_component'
-  s.version          = '0.0.1'
+  s.version          = '0.1.0'
   s.summary          = 'A new Flutter project.'
   s.description      = <<-DESC
 A new Flutter project.
@@ -13,7 +13,7 @@ A new Flutter project.
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Your Company' => 'email@example.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+  s.source_files = 'ui_paste_component/Sources/ui_paste_component/**/*'
   s.dependency 'Flutter'
   s.platform = :ios, '13.0'
 

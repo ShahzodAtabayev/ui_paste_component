@@ -1,15 +1,14 @@
+import 'package:flutter/widgets.dart';
+
 import 'ui_paste_component_platform_interface.dart';
+
 import 'package:flutter/rendering.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class UIPastComponent extends StatefulWidget {
   final Function(String pasted) onPasted;
 
-  const UIPastComponent({
-    super.key,
-    required this.onPasted,
-  });
+  const UIPastComponent({super.key, required this.onPasted});
 
   @override
   State<UIPastComponent> createState() => _UIPastComponentState();

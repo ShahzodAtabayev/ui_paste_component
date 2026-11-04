@@ -1,0 +1,64 @@
+# Controls which files `flutter pub publish` uploads to pub.dev.
+#
+# NOTE: when this file exists, pub IGNORES the root .gitignore, so every rule
+# from .gitignore that matters for publishing must be repeated here.
+# Nested .gitignore files (example/, ios/, android/, ...) still apply.
+
+# ---------------------------------------------------------------------------
+# Rules mirrored from .gitignore
+# ---------------------------------------------------------------------------
+
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+
+# IntelliJ / VS Code
+*.iml
+*.ipr
+*.iws
+.idea/
+.vscode/
+
+# Flutter/Dart/Pub
+pubspec.lock
+**/doc/api/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+build/
+
+# ---------------------------------------------------------------------------
+# Publish-only rules: build output and machine-local files that must never be
+# uploaded, even if they end up committed or a nested .gitignore changes.
+# ---------------------------------------------------------------------------
+
+# iOS / Swift Package Manager / CocoaPods
+**/.build/
+**/.swiftpm/
+**/Pods/
+**/Podfile.lock
+**/Flutter/ephemeral/
+**/Flutter/Generated.xcconfig
+**/Flutter/flutter_export_environment.sh
+**/xcuserdata/
+**/DerivedData/
+
+# Android / Gradle
+**/.gradle/
+**/.cxx/
+**/.kotlin/
+**/local.properties
+**/gradle-wrapper.jar
+**/GeneratedPluginRegistrant.*
+
+# Symbols / obfuscation maps
+app.*.symbols
+app.*.map.json
