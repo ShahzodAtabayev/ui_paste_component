@@ -11,20 +11,18 @@ class MethodChannelUiPasteComponent extends UiPasteComponentPlatform {
 
   Function(String arguments)? _paste;
 
-  MethodChannelUiPasteComponent() {
-    methodChannel.setMethodCallHandler((call) {
-      switch (call.method) {
-        case "pasted":
-          _paste?.call(call.arguments.toString());
-          break;
-        default:
-      }
-      return Future.value();
-    });
+  @override
+  void setPasteMethod(Function(String arguments) pasteMethod) {
+    _paste = pasteMethod;
+    // Registered lazily (not in the constructor) so that creating the default
+    // platform instance does not require an initialized binary messenger.
+    methodChannel.setMethodCallHandler(_handleMethodCall);
   }
 
-  @override
-  void setPasteMethod(Function(String arguments) pasteMethod) async {
-    _paste = pasteMethod;
+  Future<void> _handleMethodCall(MethodCall call) async {
+    switch (call.method) {
+      case 'pasted':
+        _paste?.call(call.arguments.toString());
+    }
   }
 }
