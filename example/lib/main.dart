@@ -1,6 +1,7 @@
 import 'package:ui_paste_component/ui_paste_component.dart';
 import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:material_ui/material_ui.dart';
+
 import 'dart:io';
 
 void main() {
@@ -24,7 +25,9 @@ class _MyAppState extends State<MyApp> {
 
   static int? getSystemVersion() {
     final intInStr = RegExp(r'\d+');
-    final numbers = intInStr.allMatches(Platform.operatingSystemVersion).map((m) => m.group(0));
+    final numbers = intInStr
+        .allMatches(Platform.operatingSystemVersion)
+        .map((m) => m.group(0));
     return int.tryParse(numbers.firstOrNull ?? '');
   }
 
@@ -32,18 +35,13 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       locale: const Locale("ru"),
-      supportedLocales: const [
-        Locale('ru'),
-        Locale('en'),
-      ],
+      supportedLocales: const [Locale('ru'), Locale('en')],
       // material_ui / cupertino_ui ship their own MaterialLocalizations and
       // CupertinoLocalizations types, so their delegates must be used here
       // (not the ones from flutter_localizations).
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
+        appBar: AppBar(title: const Text('Plugin example app')),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: TextField(
@@ -64,11 +62,14 @@ class _MyAppState extends State<MyApp> {
               final systemVersion = _MyAppState.getSystemVersion();
               final children = <Widget>[];
               for (var item in editableTextState.contextMenuButtonItems) {
-                if (item.type == ContextMenuButtonType.paste && Platform.isIOS && systemVersion! >= 16) {
+                if (item.type == ContextMenuButtonType.paste &&
+                    Platform.isIOS &&
+                    systemVersion! >= 16) {
                   final pasteItem = item;
                   children.add(
                     SizedBox(
-                      width: adaptiveWidth, // yoki AdaptiveWidth qiling istasangiz
+                      width:
+                          adaptiveWidth, // yoki AdaptiveWidth qiling istasangiz
                       child: UIPastComponent(
                         onPasted: (pasted) {
                           _textEditingController.text = pasted;

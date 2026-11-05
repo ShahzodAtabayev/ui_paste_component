@@ -18,11 +18,12 @@ void main() {
   /// Simulates the native side invoking [method] on the plugin's channel.
   Future<void> sendFromNative(String method, [Object? arguments]) {
     const codec = StandardMethodCodec();
-    return TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.handlePlatformMessage(
-      platform.methodChannel.name,
-      codec.encodeMethodCall(MethodCall(method, arguments)),
-      (_) {},
-    );
+    return TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .handlePlatformMessage(
+          platform.methodChannel.name,
+          codec.encodeMethodCall(MethodCall(method, arguments)),
+          (_) {},
+        );
   }
 
   test('"pasted" from native calls the registered paste callback', () async {
